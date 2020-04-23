@@ -1,14 +1,31 @@
 library dracone;
 
+import 'package:dracone/core/dracone_game.dart';
+import 'package:dracone/core/render_config.dart';
+import 'package:dracone/ecs.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttershy/fluttershy.dart';
 
-class Dracone extends StatelessWidget {
-  final Color backgroundColor;
-  final void Function(BuildContext context) init;
+export 'package:fluttershy/fluttershy.dart' hide Game;
+export 'package:ordered_set/comparing.dart';
+export 'package:dracone/core/dracone_game.dart';
+export 'package:dracone/core/render_command.dart';
+export 'package:dracone/core/render_config.dart';
 
-  Dracone({Key key, @required this.init, Color backgroundColor})
-      : backgroundColor = backgroundColor ?? Color.fromARGB(255, 0, 0, 0),
+class Dracone extends StatelessWidget {
+  final List<System> systems;
+  final void Function(BuildContext context, World world) init;
+  final Color backgroundColor;
+  final RenderConfig renderConfig;
+
+  Dracone({
+    Key key,
+    List<System> systems,
+    @required this.init,
+    Color backgroundColor,
+    this.renderConfig,
+  })  : systems = systems ?? [],
+        backgroundColor = backgroundColor ?? Color.fromARGB(255, 0, 0, 0),
         super(key: key);
 
   @override
@@ -16,19 +33,10 @@ class Dracone extends StatelessWidget {
     return Fluttershy(
       backgroundColor: backgroundColor,
       game: DraconeGame(
+        systems: systems,
         init: init,
+        renderConfig: renderConfig,
       ),
     );
-  }
-}
-
-class DraconeGame extends Game {
-  final void Function(BuildContext context) init;
-
-  DraconeGame({@required this.init});
-
-  @override
-  void setup(BuildContext context) {
-    super.setup(context);
   }
 }
