@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
             .withComponent(
               Rectangle(
                 size: Size(180.0, 180.0),
-                color: Colors.red,
+                paint: Paint()..color = Colors.red,
               ),
             )
             .build();
