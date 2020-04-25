@@ -4,6 +4,7 @@ import 'package:dracone/ecs.dart';
 import 'package:dracone/resources.dart';
 import 'package:dracone/systems/camera_system.dart';
 import 'package:dracone/systems/rectangle_rendering_system.dart';
+import 'package:dracone/systems/rive_rendering_system.dart';
 import 'package:dracone/systems/sprite_rendering_system.dart';
 import 'package:dracone/systems/transform_system.dart';
 import 'package:flutter/widgets.dart' hide Transform;
@@ -28,6 +29,7 @@ class DraconeGame extends Game {
             CameraSystem(),
             RectangleRenderingSystem(),
             SpriteRenderingSystem(),
+            RiveRenderingSystem(),
           ],
         );
 
@@ -49,11 +51,16 @@ class DraconeGame extends Game {
         _resize((event as ResizeEvent).size);
         break;
     }
+
+    _world.getResource<EventDispatcher>().dispatch(event);
   }
 
   @override
   void update(double deltaTime) {
+    _world.getResource<FPSCounter>().addFrame(deltaTime);
+    _world.getResource<Time>().add(deltaTime);
     _world.run();
+    _world.getResource<EventDispatcher>().flush();
   }
 
   @override
@@ -73,13 +80,16 @@ class DraconeGame extends Game {
   }
 
   void _initResources(BuildContext context) {
+    _world.addResource(DataCache());
     _world.addResource(DraconeContext(
       buildContext: context,
       assetBundle: DefaultAssetBundle.of(context),
     ));
-    _world.addResource(DataCache());
-    _world.addResource(ScreenDimensions(size: Size(0.0, 0.0)));
+    _world.addResource(EventDispatcher());
+    _world.addResource(FPSCounter());
     _world.addResource(Renderer(this.renderConfig?.renderOrderCompareFunction));
+    _world.addResource(ScreenDimensions(size: Size(0.0, 0.0)));
+    _world.addResource(Time());
   }
 
   void _resize(Size size) {

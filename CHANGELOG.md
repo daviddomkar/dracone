@@ -1,3 +1,10 @@
+## [0.1.0] - Beta
+
+- Rive rendering
+- Event system
+- FPS counter
+- Time
+
 ## [0.0.2] - Sprite rendering, Assets system
 
 - Sprite rendering

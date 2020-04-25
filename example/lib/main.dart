@@ -1,6 +1,8 @@
 import 'package:dracone/dracone.dart';
+import 'package:dracone/assets.dart';
 import 'package:dracone/components.dart';
 import 'package:dracone/math.dart' hide Colors;
+import 'package:example/test_system.dart';
 import 'package:flutter/material.dart' hide Transform;
 
 void main() {
@@ -11,6 +13,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dracone(
+      systems: [
+        TestSystem(),
+      ],
       init: (context, world) {
         world
             .createEntity()
@@ -38,8 +43,8 @@ class MyApp extends StatelessWidget {
             )
             .build();
       },
-      backgroundColor: Colors.black,
       renderConfig: RenderConfig(
+        backgroundColor: Colors.green,
         renderOrderCompareFunction: Comparing.join([
           (command) => command.transform.getTranslation().z,
           (command) => command.transform.getTranslation().y,
