@@ -14,7 +14,7 @@ class RectangleRenderCommand extends RenderCommand {
   void render(Canvas canvas) {
     canvas.drawRect(
       Rect.fromLTWH(0, 0, rectangle.size.width, rectangle.size.height),
-      Paint()..color = rectangle.color,
+      rectangle.paint,
     );
   }
 }

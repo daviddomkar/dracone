@@ -1,5 +1,6 @@
 library dracone;
 
+import 'package:dracone/core/asset.dart';
 import 'package:dracone/core/dracone_game.dart';
 import 'package:dracone/core/render_config.dart';
 import 'package:dracone/ecs.dart';
@@ -8,6 +9,8 @@ import 'package:fluttershy/fluttershy.dart';
 
 export 'package:fluttershy/fluttershy.dart' hide Game;
 export 'package:ordered_set/comparing.dart';
+export 'package:dracone/core/asset.dart';
+export 'package:dracone/core/data.dart';
 export 'package:dracone/core/dracone_game.dart';
 export 'package:dracone/core/render_command.dart';
 export 'package:dracone/core/render_config.dart';
@@ -20,6 +23,7 @@ class Dracone extends StatelessWidget {
 
   Dracone({
     Key key,
+    List<Asset> assets,
     List<System> systems,
     @required this.init,
     Color backgroundColor,

@@ -4,6 +4,7 @@ import 'package:dracone/ecs.dart';
 import 'package:dracone/resources.dart';
 import 'package:dracone/systems/camera_system.dart';
 import 'package:dracone/systems/rectangle_rendering_system.dart';
+import 'package:dracone/systems/sprite_rendering_system.dart';
 import 'package:dracone/systems/transform_system.dart';
 import 'package:flutter/widgets.dart' hide Transform;
 import 'package:fluttershy/fluttershy.dart';
@@ -15,14 +16,18 @@ class DraconeGame extends Game {
 
   final World _world;
 
-  DraconeGame({List<System> systems, @required this.init, this.renderConfig})
-      : systems = systems ?? [],
+  DraconeGame({
+    List<System> systems,
+    @required this.init,
+    this.renderConfig,
+  })  : systems = systems ?? [],
         _world = World(
           systems: [
             ...systems,
             TransformSystem(),
             CameraSystem(),
             RectangleRenderingSystem(),
+            SpriteRenderingSystem(),
           ],
         );
 
@@ -68,7 +73,11 @@ class DraconeGame extends Game {
   }
 
   void _initResources(BuildContext context) {
-    _world.addResource(DraconeContext(buildContext: context));
+    _world.addResource(DraconeContext(
+      buildContext: context,
+      assetBundle: DefaultAssetBundle.of(context),
+    ));
+    _world.addResource(DataCache());
     _world.addResource(ScreenDimensions(size: Size(0.0, 0.0)));
     _world.addResource(Renderer(this.renderConfig?.renderOrderCompareFunction));
   }
