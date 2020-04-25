@@ -1,10 +1,12 @@
 import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
+
 mixin Poolable {
   void reset() {}
   void retrieve() {}
 }
+
 class Pool<T extends Poolable> {
   final List<T> _items;
   final T Function() _generate;
