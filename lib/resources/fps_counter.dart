@@ -18,6 +18,6 @@ class FPSCounter with Resource<FPSCounter> {
     _rawFrames++;
   }
 
-  double get fps =>
+  int get fps =>
       (_rawFrames / _time).isFinite ? (_rawFrames / _time).round() : 0;
 }

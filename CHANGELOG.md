@@ -1,3 +1,7 @@
+## [0.1.3] - Minor fixes
+
+- FPS Counter fix
+
 ## [0.1.2] - Added licence
 
 ## [0.1.1] - Minor fixes

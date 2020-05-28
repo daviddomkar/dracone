@@ -1,6 +1,6 @@
 name: dracone
 description: Flutter game engine based on fluttershy library and dartex ECS. Currently you can render sprites, rive files (currently without animations) and rectangles.
-version: 0.1.2
+version: 0.1.3
 homepage: "https://github.com/DraconicDevelopment/dracone"
 
 environment:
